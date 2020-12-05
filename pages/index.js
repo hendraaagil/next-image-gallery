@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
-import { Box, Container, Text } from '@chakra-ui/react';
+import { Box, Container, Text, Wrap, WrapItem } from '@chakra-ui/react';
 import { getCuratedProps } from '../lib/api';
 
 export default function Home({ data }) {
@@ -24,15 +24,30 @@ export default function Home({ data }) {
             NextJS Image Gallery
           </Text>
         </Container>
-        {photos.map((pic) => (
-          <Image
-            key={pic.id}
-            src={pic.src.landscape}
-            alt={pic.url}
-            width={600}
-            height={400}
-          />
-        ))}
+        <Wrap px="1rem" spacing={4} justify="center">
+          {photos.map((pic) => (
+            <WrapItem
+              key={pic.id}
+              boxShadow="base"
+              rounded="20px"
+              overflow="hidden"
+              bg="blue.50"
+              lineHeight="0"
+              _hover={{
+                boxShadow: '2xl',
+                transform: 'scale(0.98)',
+                transition: '0.3s ease-in',
+              }}
+            >
+              <Image
+                src={pic.src.landscape}
+                alt={pic.url}
+                width={600}
+                height={400}
+              />
+            </WrapItem>
+          ))}
+        </Wrap>
       </Box>
     </div>
   );
