@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   Box,
   Container,
@@ -45,7 +46,7 @@ export default function Home({ data }) {
         <title>NextJS Image Gallery</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box overflow="hidden" bg="blue.100" minH="100vh">
+      <Box overflow="hidden" bg="blue.200" minH="100vh">
         <Container>
           <Text
             color="blue.900"
@@ -95,12 +96,16 @@ export default function Home({ data }) {
                 transition: '0.2s ease-in',
               }}
             >
-              <Image
-                src={pic.src.landscape}
-                alt={pic.url}
-                width={600}
-                height={320}
-              />
+              <Link href={`/photos/${pic.id}`}>
+                <a>
+                  <Image
+                    src={pic.src.landscape}
+                    alt={pic.url}
+                    width={600}
+                    height={320}
+                  />
+                </a>
+              </Link>
             </WrapItem>
           ))}
         </Wrap>
@@ -111,7 +116,5 @@ export default function Home({ data }) {
 
 export async function getServerSideProps() {
   const data = await getCuratedProps();
-  return {
-    props: { data },
-  };
+  return { props: { data } };
 }
